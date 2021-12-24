@@ -11,7 +11,7 @@ gem "sqlite3", "~> 1.4"
 gem "puma", "~> 4.1"
 gem "rails", "~> 6.0.3", ">= 6.0.3.4"
 gem "rubocop-rails_config", "~> 1.3.3"
-
+gem "sidekiq"
 group :development, :test do
   gem "byebug", "~> 11.1.3"
   gem "factory_bot_rails", "~> 6.1.0"

@@ -8,7 +8,7 @@ module Payment
     Result = Struct.new(:amount, :currency)
 
     class << self
-      def charge(amount:, token:, currency: "EUR")
+      def charge(amount:, token:, currency:)
         case token.to_sym
         when :card_error
           raise CardError, "Your card has been declined."
