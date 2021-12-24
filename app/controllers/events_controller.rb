@@ -11,6 +11,10 @@ class EventsController < ApiController
     render :show
   end
 
+  def available_events
+    @events = Event.where('time > ?', DateTime.now)
+  end
+
   private
 
   def set_event
