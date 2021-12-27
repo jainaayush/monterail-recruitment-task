@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "rails_helper"
+
 RSpec.describe Event, type: :model do
   describe "formatted_time" do
     let(:time) { DateTime.new(2020, 12, 31, 12) }

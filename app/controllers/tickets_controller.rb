@@ -12,9 +12,8 @@ class TicketsController < ApiController
     payment_token = params[:token]
     tickets_count = params[:tickets_count].to_i
     return wrong_number_of_tickets unless tickets_count > 0
-    return number_of_tickets_is_not_even unless (params[:tickets_count].to_i >=2 && params[:tickets_count].to_i%2==0)
     TicketPayment.call(@tickets, payment_token, tickets_count)
-    return odd_issues if @tickets.errors[:base].present?
+    return available_issues if @tickets.errors.present?
     render json: { success: "Payment succeeded." }
   end
 
@@ -43,11 +42,7 @@ class TicketsController < ApiController
     render json: { error: "Number of tickets must be greater than zero." }, status: :unprocessable_entity
   end
 
-  def odd_issues
-    render json: { error: @tickets.errors[:base] }, status: :unprocessable_entity
-  end
-
-  def number_of_tickets_is_not_even
-    render json: { error: "Tickets count should be even." }, status: :unprocessable_entity
+  def available_issues
+    render json: { error: @tickets.errors[:available] }, status: :unprocessable_entity
   end
 end

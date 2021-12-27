@@ -12,7 +12,7 @@ class EventsController < ApiController
   end
 
   def available_events
-    @events = Event.where('time > ?', DateTime.now)
+    @events = Event.where("time > ?", DateTime.now)
   end
 
   private

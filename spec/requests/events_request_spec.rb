@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "rails_helper"
+
 RSpec.describe "Events", type: :request do
   shared_examples "event not found" do
     it "should have correct HTTP status" do
@@ -26,6 +28,21 @@ RSpec.describe "Events", type: :request do
 
     it "should render all events" do
       expect(response_json[:events].size).to eq(5)
+    end
+  end
+
+  describe "GET events#available_events" do
+    subject { get "/events/available_events" }
+    before { subject }
+
+    it "should have correct HTTP status" do
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "should render all available_events" do
+      Event.first.update(time: Time.now - 2.day)
+      events = Event.where("time > ?", DateTime.now)
+      expect(events.size).to eq(4)
     end
   end
 

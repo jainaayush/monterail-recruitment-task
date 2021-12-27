@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "rails_helper"
+
 RSpec.describe TicketPayment do
   describe ".call" do
     subject { described_class.call(ticket, token, tickets_count) }
@@ -10,11 +12,6 @@ RSpec.describe TicketPayment do
 
     context "when tickets are available" do
       let(:tickets_count) { 1 }
-
-      it "should call payment adapter" do
-        expect(Payment::Gateway).to receive(:charge).with(amount: ticket.price, token: token)
-        subject
-      end
 
       it "should update available tickets count" do
         expect { subject }.to change(ticket, :available).by(-1)
